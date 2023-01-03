@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+{% if list %}
+<h2 class='comp'>Company</h2>
+    {% for i in list %}
+    <h4 class='hhh'><span class='xui'>Detail</span> : <a href="{% url 'company_detail' i.pk  %}">{{ i }}</a></h4>
+    {% endfor %}
+{% else %}
+    <p>there are not companies</p>
+{% endif %}
+<h5 class='h'>Do you know some others company ? Help us</h5>
+{% if user.is_staff %}
+    <a href="{% url 'company_create' %}">Add there</a>
+{% else %}
+    <p>You must have 'staff' status before you create new company</p>
+{% endif %}
+{% endblock content %}

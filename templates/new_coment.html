@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+{% if t == 1 %}
+    <p>You have already used your comments for this topic. Note that you have only two comments for each article</p>
+{% else %}
+    <form action = "{% url 'comment' a.pk user.id %}" method = 'post'>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type = 'submit'>Send</button>
+    </form>
+{% endif %}
+{% endblock content %}

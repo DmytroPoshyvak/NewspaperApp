@@ -1,0 +1,17 @@
+{% extends 'base.html'%}
+{% block content %}
+{% load bootstrap4 %}
+
+{% block page_header %}
+<h2 class='f'>Edit your article</h2>
+{% endblock page_header %}
+<div class='secret'>
+    <form method = 'post' class='form'>
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        {% buttons %}
+        <button type='submit' class='btn btn-primary l'>Save</button>
+        {% endbuttons %}
+    </form>
+</div>
+{% endblock content %}

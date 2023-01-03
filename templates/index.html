@@ -1,0 +1,22 @@
+<link rel="stylesheet" href = "https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+{% extends 'base.html' %}
+{% block content%}
+<main style="margin-botom:20px;">
+    {% if user.is_authenticated %}
+        {% if user.username == 'vlad'%}
+        <p>Hello petux</p>
+        {% endif %}
+        <div class="bg-light p-5 rounded">
+        <h1>Hello {{ user.username }}</h1>
+        <p class="lead">This example is a quick exercise to illustrate how the top-aligned navbar works. As you scroll, this navbar remains in its original position and moves with the rest of the page.</p>
+        <a class="btn btn-lg btn-primary" role="button" href="{% url 'newspaper_list_view' %}">Newspaper List</a>
+        </div>
+    {% else %}
+        <div class="bg-light p-5 rounded">
+            <h1>You are not login</h1>
+            <p class="lead">This example is a quick exercise to illustrate how the top-aligned navbar works. As you scroll, this navbar remains in its original position and moves with the rest of the page.</p>
+            <a class="btn btn-lg btn-primary" role="button" href="{% url 'login' %}">Log in</a>
+        </div>
+    {% endif %}
+</main>
+{% endblock content %}

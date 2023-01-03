@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load bootstrap4 %}
+<h3 class="r">Article - {{ article }}</h3>
+<div class='container main'>
+    <div class="bg-light p-5 rounded gg">
+        <p class='dmytro'><span class='company'>Article - </span>{{ article }}</p>
+        <p><span class='company'>Body - </span>{{ article.body }}</p>
+        <p><span class='company'>Description - </span>{{ article.description }}</p>
+        <p><span class='company'>Date - </span>{{ article.date|date:'M d , Y H:i' }}</p>
+        <p><span class='company'>Author - </span>{{ article.author }}</p>
+        <p class='vladd'><span class='company'>Company - </span>{{ article.company }}</p>
+    </div>
+    <h3 class='bom'>Comments : </h3>
+    {% if com %}
+        {% for i in com %}
+        <div class="bg-light p-5 rounded ga">
+            <p class='dmytro'><span class="company">Comment</span> - {{ i }}</a></p>
+            <p class='vladd'><span class="company">Author</span> - {{ i.author }}</a></p>
+        </div>
+        {% endfor %}
+        {% if user.is_authenticated %}
+            {% if g == 1 %}
+                {% if p == 1 %}
+                    <form method='post' action = "{% url 'detail_newspaper' article.id user.id %}">
+                        {% csrf_token %}
+                        <button type = 'submit' class="btn btn-primary btt">Show all comments</button>
+                    </form>
+                {% elif p == 0 %}
+                    <form method='GET' action = "{% url 'detail_newspaper' article.id user.id %}">
+                        {% csrf_token %}
+                        <button type = 'submit' class="btn btn-primary btt">Back</button>
+                    </form>
+                {% endif %}
+            {% endif %}
+        {% else %}
+            {% if g == 1 %}
+                {% if p == 1 %}
+                    <form method='post' action = "{% url 'detail_newspaper' article.id 999 %}">
+                        {% csrf_token %}
+                        <button type = 'submit' class="btn btn-primary btt">Show all comments</button>
+                    </form>
+                {% elif p == 0%}
+                    <form method='GET' action = "{% url 'detail_newspaper' article.id 999 %}">
+                        {% csrf_token %}
+                        <button type = 'submit' class="btn btn-primary btt">Back</button>
+                    </form>
+                {% endif %}
+            {% endif %}
+        {% endif %}
+    {% else %}
+        <p>There are not added comments below yet</p>
+    {% endif %}
+    {% if user.is_authenticated %}
+            {% if t != 1 and t != 2 %}
+                <form action="{% url 'detail_newspaper' article.pk user.id %}" method = 'POST' class='form'>
+                    {% csrf_token %}
+                    {% bootstrap_form form %}
+                    {% buttons %}
+                <button type = 'submit'class='btn btn-primary l'>Send</button>
+                {% endbuttons %}
+                </form>
+            {% elif t == 2 %}
+            <p>You are not login in</p>
+            {% elif t == 1 %}
+                <p class='pp'>You have already used your comments for this topic. Note that you have only two comments for each article</p>
+                <p class='pe'>only for reporter</p>
+            {% endif %}
+            <div class='chik'>
+                <a class = "ters" href = "{% url 'newspaper_update' article.pk %}">Edit</a>
+                <a class='tes' href = "{% url 'newspaper_delete' article.pk %}">Delete</a>
+            </div>
+    {% else %}
+        <p class='ppp'>You are not login yet</p>
+    {% endif %}
+</div>
+{% endblock content%}
+

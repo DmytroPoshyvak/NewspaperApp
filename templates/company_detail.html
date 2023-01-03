@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3 class="both">Company : {{company}}</h3>
+<div class="bg-light p-5 rounded gg">
+    <p class="companys"><span class = 'company'>Company - </span>{{company}}</p>
+    <p><span class = 'company'>About Company - </span>{{ company.description }}</p>
+    <p class="companyd"><span class = 'company'>Date - </span> {{ company.date|date:"M d , Y H:i" }}</p>
+</div>
+<h3 class="both_2">All {{ company }}'s article</h3>
+{% if user.is_authenticated%}
+    {% if cc %}
+        {% for i in cc%}
+            <p><span class='companyy'>Article - </span><a href = "{% url 'detail_newspaper' i.id user.id %}">{{ i }}</a></p>
+        {% endfor %}
+    {% else %}
+        <p>There are not {{ company }}'s article</p>
+    {% endif %}
+{% else %}
+    {% if cc %}
+        {% for i in cc%}
+            <p><span class = 'companyy'>Article - </span><a href = "{% url 'detail_newspaper' i.id 999 %}">{{ i }}</a></p>
+        {% endfor %}
+    {% else %}
+        <p>There are not {{ company }}'s article</p>
+    {% endif %}
+{% endif %}
+{% endblock content %}
+
